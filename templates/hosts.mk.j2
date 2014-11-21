@@ -1,0 +1,16 @@
+# -*- mode: python -*-
+# {{ansible_managed}}
+
+all_hosts = [
+# ansible inventory
+{% for host in groups['all'] %}
+    '{{host}}|snmp|tcp',
+{% endfor %}
+#
+# netmon inventory
+{% for host in netmon.devices %}
+{%     if 'omdistro' in host and 'groups' in host['omdistro'] %}
+    '{{host.name}}|{{host.omdistro.groups|join('|')}}',
+{%     endif %}
+{% endfor %}
+]

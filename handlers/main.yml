@@ -1,0 +1,7 @@
+---
+- name: cmk inventory
+  command: su -c "cmk -II" -l {{omdistro_site}}
+  notify: cmk reload
+
+- name: cmk reload
+  command: su -c "cmk -O" -l {{omdistro_site}}

@@ -1,0 +1,27 @@
+---
+- include: setup-redhat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: create omdistro site
+  command: omd create {{omdistro_site}} creates=/opt/omd/sites/{{omdistro_site}}
+
+- name: start omd
+  service: name=omd state=started enabled=yes
+
+- name: template hosts.mk
+  template: >
+      src=hosts.mk.j2
+      dest=/opt/omd/sites/{{omdistro_site}}/etc/check_mk/conf.d/hosts.mk
+      owner={{omdistro_site}}
+      group={{omdistro_site}}
+      backup=yes
+  notify: cmk inventory
+
+- name: template main.mk
+  template: >
+      src=hosts.mk.j2
+      dest=/opt/omd/sites/{{omdistro_site}}/etc/check_mk/main.mk
+      owner={{omdistro_site}}
+      group={{omdistro_site}}
+      backup=yes
+  notify: cmk reload

@@ -1,0 +1,9 @@
+---
+- name: template consol labs yum repository
+  template: src=consol-labs.repo.j2 dest=/etc/yum.repos.d/consol-labs.repo
+
+- name: import consol labs rpm key
+  rpm_key: key={{omdistro_consol_labs_rpm_key}} state=present
+
+- name: install omdistro
+  yum: name=omd-{{omdistro_version}} state=installed

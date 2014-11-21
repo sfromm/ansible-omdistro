@@ -1,0 +1,52 @@
+---
+omdistro_version: 1.20
+omdistro_site: local
+omdistro_no_snmpbulk_tag: nobulk
+omdistro_iftypes:
+    - 6
+    - 18
+    - 22
+    - 23
+    - 30
+    - 32
+    - 37
+    - 39
+    - 117
+    - 134
+    - 135
+omdistro_ignored_checktypes:
+    - "df"
+    - "nfsmounts"
+omdistro_ignored_services:
+    asr1k: "Mem used lsmpi_io"
+omdistro_contactgroups:
+    - admin
+    - 24x7
+omdistro_hostgroups:
+    - noc
+    - core
+omdistro_servicegroups:
+    - snmp
+    - tcp
+# the following serves only as an example
+# of what the netmon has/dictionary/mapping looks like.
+netmon:
+    devices:
+        - name: localhost
+          omdistro:
+              groups:
+                  - noc
+                  - core
+    groups:
+        noc:
+            name: NOC
+            descr: NOC Devices
+        core:
+            name: Core
+            descr: Core Devices
+        snmp:
+            name: SNMP
+            descr: SNMP enabled devices
+        tcp:
+            name: TCP
+            descr: CMK enabled devices
