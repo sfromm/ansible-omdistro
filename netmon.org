@@ -1,0 +1,158 @@
+#+TITLE: Netmon Documentation
+#+OPTIONS: toc:4 h:4
+
+* Netmon
+** About
+
+This file serves as a description for what will be hence described as
+*netmon*.  *Netmon* serves as a way to describe network infrastructure
+in a way that can be consumed by applications for configuration
+purposes.  It may be described in [[http://yaml.org/][YAML]] or [[http://www.json.org/][JSON]].  It is intended to seed
+just enough information to an application such that the application can
+then discover the rest of the information.
+
+Both YAML and JSON use different terminology to refer to the same
+thing.  For example, a /JSON/ array can be a /YAML/ sequence.  This
+document will use the words /key/, /value/, /list/, and /dictionary/ to
+describe various elements of the *netmon* structure.
+
+** Top level keys
+
+The top level key MUST be *netmon*.  In a /YAML/ file, this would be:
+
+#+BEGIN_SRC yaml
+  ---
+  netmon: { }
+#+END_SRC
+
+Alternatively, the following would work for /JSON/:
+
+#+BEGIN_SRC json
+  {
+      "netmon": { }
+  }
+#+END_SRC
+
+There are two second level keys beneath *netmon*.  They are:  *devices*
+and *groups*
+
+** Groups
+
+*Groups* is a dictionary of dictionaries that describe individual
+groups.  A group is a dictionary tied to a key.  Each group dictionary
+MUST have two keys: *name* and *descr*.  The value *name* is a single
+word; there is no white space allowed within the string.  The value for
+*descr* is a string that may have white space.
+
+Examples:
+
+#+BEGIN_SRC yaml
+  ---
+  netmon:
+      groups:
+          customer:
+              name: Customer
+              descr: Customer managed devices
+          noc:
+              name: NOC
+              descr: NOC devices
+          core:
+              name: Core
+              descr: Network core device
+          gold:
+              name: Gold
+              descr: Gold tier devices
+#+END_SRC
+
+The group key (eg. /customer/, /noc/, or /gold/ as seen above) may be
+used elements in the *devices* section to associate disparate devices
+with each other.
+
+A group dictionary may also have a *filter* key.  The value for *filter*
+is a /list/ of strings.  This can be used by applications as they see
+fit.  For example, it can be used to test if a device should be a member
+of a group with data collected by the application.
+
+Example:
+
+#+BEGIN_SRC yaml
+  ---
+  netmon:
+      groups:
+          envmon:
+              name: Environmentals
+              descr: Environmental monitoring
+              filter:
+                  - temperature
+                  - humidity
+#+END_SRC
+
+** Devices
+
+*Devices* is a list of dictionaries that describe individual devices.
+This is not meant to be an exhaustive description of device's
+configuration and services.  Rather, it is meant to seed an application
+with enough information so that it can discover the remaining details.
+
+Each element in the *devices* list is a dictionary.  Within that
+dictionary, it MUST define the keys *name* and *groups*.  Depending on
+the value of *name*, you may also define the key *ip*.
+
+- *name*:  This is the name of the device.  It may either be a
+  fully-qualified DNS name (FQDN) or a generic name.  If it is not a FQDN,
+  you MUST define the key *ip*.
+- *groups*: This is a list of groups that are associated with the
+  device.  Each element in the list is the group's key, as defined in
+  *groups*.  You can think of *groups* as a list of tags associated with
+  a device.
+- *ip*: This is a dictionary with two keys: *v4* and *v6*.  The value
+  for the *v4* key is an IPv4 address and the value for the *v6* key is
+  an IPv6 address.  You specify one or both of these keys.  Remember,
+  you only need to specify enough so that applications may discover the
+  rest.  For devices with multiple interfaces (eg. routers), you are
+  encouraged to use the device's loopback interface.
+
+Example:
+
+#+BEGIN_SRC yaml
+  ---
+  netmon:
+      devices:
+          - name: rtr1.example.net
+            groups: [ gold, core ]
+          - name: ns1.example.net
+            groups: [ gold, noc ]
+          - name: CustomerFoo
+            groups: [ customer ]
+            ip:
+                v4: 192.168.1.1
+                v6: fec0:1::1/64
+#+END_SRC
+
+Lastly, there is the optional *ext* key.  The value for this an
+dictionary of dictionaries.  This allows for application-specific data
+to be associated with a device for further configuration.  The key
+should be the name of the application.  The value (a dictionary) is left
+to the user to define.  You are encouraged to keep it limited to key
+value pairs, where the value is a string.
+
+Example:
+
+#+BEGIN_SRC yaml
+  ---
+  netmon:
+      devices:
+          - name: CustomerBar
+            groups: [ customer ]
+            ip:
+                v4: 192.168.2.5
+            ext:
+                netflow:
+                    version: 9
+                    destination: 10.10.2.5
+                    port: 9995
+#+END_SRC
+
+** History
+
+- [2014-12-31 Wed] Initial draft.

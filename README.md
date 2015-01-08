@@ -14,6 +14,9 @@ Role Variables
 
 TODO
 
+For more information regarding *netmon*, please see:
+[netmon.org](netmon.org).
+
 Dependencies
 ------------
 
