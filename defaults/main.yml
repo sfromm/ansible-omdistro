@@ -1,7 +1,21 @@
 ---
-omdistro_version: 1.20
-omdistro_site: local
+omdistro_notification_logging: 1
 omdistro_no_snmpbulk_tag: nobulk
+omdistro_scan_parents: no
+omdistro_site: local
+omdistro_version: "1.20"
+omdistro_contactgroups:
+    - admins
+    - 24x7
+omdistro_extra_host_conf:
+    max_check_attempts:
+        - '"3", ALL_HOSTS'
+omdistro_extra_service_conf:
+    max_check_attempts:
+        - '"3", ALL_HOSTS, ALL_SERVICES'
+omdistro_hostgroups:
+    - noc
+    - core
 omdistro_iftypes:
     - 6
     - 18
@@ -19,18 +33,12 @@ omdistro_ignored_checktypes:
     - "nfsmounts"
 omdistro_ignored_services:
     asr1k: "Mem used lsmpi_io"
-omdistro_contactgroups:
-    - admin
-    - 24x7
-omdistro_hostgroups:
-    - noc
-    - core
-omdistro_servicegroups:
-    - snmp
-    - tcp
 omdistro_inventory_check:
     interval: 1440
     severity: 1
+omdistro_servicegroups:
+    - snmp
+    - tcp
 # the following serves only as an example
 # of what the netmon has/dictionary/mapping looks like.
 netmon:
