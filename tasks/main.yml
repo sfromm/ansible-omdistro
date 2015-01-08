@@ -28,9 +28,13 @@
 
 - name: template main.mk
   template: >
-      src=hosts.mk.j2
+      src=main.mk.j2
       dest=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/main.mk
       owner={{ omdistro_site }}
       group={{ omdistro_site }}
       backup=yes
   notify: cmk reload
+
+- name: scan for parent/child relationships
+  command: su -c "cmk --scan-parents" -l {{omdistro_site}}
+  when: omdistro_scan_parents
