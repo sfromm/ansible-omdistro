@@ -4,13 +4,12 @@
 all_hosts = [
 # ansible inventory
 {% for host in groups['all'] %}
-    '{{host}}|snmp|tcp',
+    "{{ host }}|snmp|tcp",
 {% endfor %}
 #
 # netmon inventory
+# check_mk can only 'discover' ipv4
 {% for host in netmon.devices %}
-{%     if 'omdistro' in host and 'groups' in host['omdistro'] %}
-    '{{host.name}}|{{host.omdistro.groups|join('|')}}',
-{%     endif %}
+    "{{ host.name }}|{{ host.groups|join('|') }}",
 {% endfor %}
 ]
