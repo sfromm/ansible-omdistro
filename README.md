@@ -4,6 +4,13 @@ omdistro and check_mk
 Ansible role to manage [omdistro](http://omdistro.org) and
 [check_mk](https://mathias-kettner.de/check_mk.html).
 
+For more information on **OMD**, **Check_MK**, and **Nagios**, please refer to
+the following:
+
+- [OMD](http://omdistro.org/doc)
+- [Check_MK](https://mathias-kettner.de/checkmk.html)
+- [Nagios Object Definitions](http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html)
+
 Requirements
 ------------
 
