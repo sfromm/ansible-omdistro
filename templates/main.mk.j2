@@ -7,16 +7,20 @@
 
 debug_log = '/opt/omd/{{omdistro_site}}/tmp/cmk-debug.log'
 
+# Automatic inventory checks
+# http://mathias-kettner.com/checkmk_inventory_checks.html
+inventory_check_interval = {{ omdistro_inventory_check.interval }}
+inventory_check_severity = {{ omdistro_inventory_check.severity }}
+
 # Discovery related
 
 # If some hosts are not resolvable via DNS, specify them here manually.
+# This can only handle IPv4 addresses.
 ipaddresses = {
 {% for host in netmon.devices %}
-{%     if 'ipv4' in host %}
-    "{{host.name}}" : "{{host.ipv4}}",
-{%     endif %}
-{%     if 'ipv6' in host %}
-    "{{host.name}}" : "{{host.ipv6}}",
+{%     if 'ip' in host and 'v4' in host['ip'] %}
+    "{{host.name}}" : "{{host.ip.v4}}",
+{%         endif %}
 {%     endif %}
 {% endfor %}
 }
@@ -46,60 +50,4 @@ ignored_services = [
 {% for tag, filter in ignored_services.iteritems() %}
     ( [ "{{tag}}" ], ALL_HOSTS, [ "{{filter}}" ] ),
 {% endfor %}
-]
-
-# Create groups and rules to associate devices, services, contacts
-
-# hostgroups
-define_hostgroups = {
-{% for grp in omdistro_hostgroups %}
-    "{{netmon['groups'][grp]['name']}}" : "{{netmon['groups'][grp]['descr']}}",
-{% endfor %}
-}
-
-host_groups = [
-{% for grp in omdistro_hostgroups %}
-    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS ),
-{% endfor %}
-]
-
-# servicegroups
-define_servicegroups = {
-{% for grp in omdistro_servicegroups %}
-    "{{netmon['groups'][grp]['name']}}" : "{{netmon['groups'][grp]['descr']}}",
-{% endfor %}
-}
-
-service_groups = [
-{% for grp in omdistro_servicegroups %}
-{% if 'filter' in netmon['groups'][grp] %}
-    ( "{{netmon['groups'][grp]['name']}}", ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
-{% else %}
-    ( "{{netmon['groups'][grp]['name']}}", ALL_HOSTS, [ "{{netmon['groups'][grp]['descr']}}" ] ),
-{% endif %}
-{% endfor %}
-]
-
-# contactgroups
-define_contactgroups = {
-{% for grp in omdistro_contactgroups %}
-    "{{netmon['groups'][grp]['name']}}" : "{{netmon['groups'][grp]['descr']}}",
-{% endfor %}
-}
-
-host_contactgroups = [
-    ( "Admins", ALL_HOSTS ),
-{% for grp in omdistro_contactgroups %}
-    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS ),
-{% endfor %}
-]
-
-service_contactgroups = [
-    ( "Admins", ALL_HOSTS, ALL_SERVICES ),
-{% if 'filter' in netmon['groups'][grp] %}
-    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
-{% else %}
-    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, ALL_SERVICES )
-{% endif %}
-
 ]

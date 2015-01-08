@@ -1,0 +1,55 @@
+# {{ ansible_managed }}
+# Create groups and rules to associate devices, services, contacts
+
+# HOSTGROUPS
+define_hostgroups = {
+{% for grp in omdistro_hostgroups %}
+    "{{netmon['groups'][grp]['name']}}" : "{{netmon['groups'][grp]['descr']}}",
+{% endfor %}
+}
+
+host_groups = [
+{% for grp in omdistro_hostgroups %}
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS ),
+{% endfor %}
+]
+
+# SERVICEGROUPS
+define_servicegroups = {
+{% for grp in omdistro_servicegroups %}
+    "{{netmon['groups'][grp]['name']}}" : "{{netmon['groups'][grp]['descr']}}",
+{% endfor %}
+}
+
+service_groups = [
+{% for grp in omdistro_servicegroups %}
+{% if 'filter' in netmon['groups'][grp] %}
+    ( "{{netmon['groups'][grp]['name']}}", ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
+{% else %}
+    ( "{{netmon['groups'][grp]['name']}}", ALL_HOSTS, [ "{{netmon['groups'][grp]['descr']}}" ] ),
+{% endif %}
+{% endfor %}
+]
+
+# CONTACTGROUPS
+define_contactgroups = {
+{% for grp in omdistro_contactgroups %}
+    "{{netmon['groups'][grp]['name']}}" : "{{netmon['groups'][grp]['descr']}}",
+{% endfor %}
+}
+
+host_contactgroups = [
+    ( "Admins", ALL_HOSTS ),
+{% for grp in omdistro_contactgroups %}
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS ),
+{% endfor %}
+]
+
+service_contactgroups = [
+    ( "Admins", ALL_HOSTS, ALL_SERVICES ),
+{% if 'filter' in netmon['groups'][grp] %}
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
+{% else %}
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, ALL_SERVICES )
+{% endif %}
+]
