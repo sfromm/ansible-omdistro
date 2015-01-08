@@ -28,6 +28,9 @@ omdistro_hostgroups:
 omdistro_servicegroups:
     - snmp
     - tcp
+omdistro_inventory_check:
+    interval: 1440
+    severity: 1
 # the following serves only as an example
 # of what the netmon has/dictionary/mapping looks like.
 netmon:
