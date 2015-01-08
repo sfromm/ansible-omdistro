@@ -23,11 +23,11 @@ define_servicegroups = {
 
 service_groups = [
 {% for grp in omdistro_servicegroups %}
-{% if 'filter' in netmon['groups'][grp] %}
+{%     if 'filter' in netmon['groups'][grp] %}
     ( "{{netmon['groups'][grp]['name']}}", ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
-{% else %}
+{%     else %}
     ( "{{netmon['groups'][grp]['name']}}", ALL_HOSTS, [ "{{netmon['groups'][grp]['descr']}}" ] ),
-{% endif %}
+{%     endif %}
 {% endfor %}
 ]
 
@@ -47,9 +47,11 @@ host_contactgroups = [
 
 service_contactgroups = [
     ( "Admins", ALL_HOSTS, ALL_SERVICES ),
-{% if 'filter' in netmon['groups'][grp] %}
+{% for grp in omdistro_servicegroups %}
+{%     if 'filter' in netmon['groups'][grp] %}
     ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
-{% else %}
+{%     else %}
     ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, ALL_SERVICES )
-{% endif %}
+{%     endif %}
+{% endfor %}
 ]
