@@ -38,7 +38,7 @@ bulkwalk_hosts += [
 
 # List of ifTypes to monitor
 # See https://mathias-kettner.de/checkmk_check_if.html
-if_inventory_porttypes: [
+if_inventory_porttypes = [
 {% for iftype in omdistro_iftypes %}
     '{{iftype}}',  # {{omdistro_iftypes_descr[iftype]|default('NA')}}
 {% endfor %}
