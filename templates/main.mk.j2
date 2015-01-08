@@ -7,6 +7,8 @@
 
 debug_log = '/opt/omd/{{omdistro_site}}/tmp/cmk-debug.log'
 
+notification_logging = {{ omdistro_notification_logging }}
+
 # Automatic inventory checks
 # http://mathias-kettner.com/checkmk_inventory_checks.html
 inventory_check_interval = {{ omdistro_inventory_check.interval }}
@@ -17,10 +19,14 @@ inventory_check_severity = {{ omdistro_inventory_check.severity }}
 # If some hosts are not resolvable via DNS, specify them here manually.
 # This can only handle IPv4 addresses.
 ipaddresses = {
+{% for host in groups['all'] %}
+{%     if 'ansible_ssh_host' in hostvars[host] %}
+    "{{ host }}" : "{{ ansible_ssh_host }}",
+{%     endif %}
+{% endfor %}
 {% for host in netmon.devices %}
 {%     if 'ip' in host and 'v4' in host['ip'] %}
-    "{{host.name}}" : "{{host.ip.v4}}",
-{%         endif %}
+    "{{ host.name }}" : "{{ host.ip.v4 }}",
 {%     endif %}
 {% endfor %}
 }
@@ -47,7 +53,32 @@ ignored_checktypes = [
 
 # Skip monitoring of the following services
 ignored_services = [
-{% for tag, filter in ignored_services.iteritems() %}
+{% for tag, filter in omdistro_ignored_services.iteritems() %}
     ( [ "{{tag}}" ], ALL_HOSTS, [ "{{filter}}" ] ),
 {% endfor %}
 ]
+
+# Use bits, not bytes for monitoring and measuring.
+checkgroup_parameters['if'] = [
+    ( {'unit' : 'bit' }, [], ALL_HOSTS, ALL_SERVICES, {'comment': u'Show bits instead of bytes'} ),
+]
+
+# Define extra host configuration parameters
+{% for param in omdistro_extra_host_conf %}
+extra_host_conf["{{ param }}"] = [
+{%     for value in omdistro_extra_host_conf[param] %}
+    ( {{ value }} )
+{%     endfor %}
+]
+{% endfor %}
+
+# Define extra service configuration parameters
+{% for param in omdistro_extra_service_conf %}
+extra_service_conf["{{ param }}"] = [
+{%     for value in omdistro_extra_service_conf[param] %}
+    ( {{ value }} )
+{%     endfor %}
+]
+{% endfor %}
+
+
