@@ -51,7 +51,7 @@ service_contactgroups = [
 {%     if 'filter' in netmon['groups'][grp] %}
     ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
 {%     else %}
-    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, ALL_SERVICES )
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, ALL_SERVICES ),
 {%     endif %}
 {% endfor %}
 ]
