@@ -5,5 +5,9 @@
 - name: import consol labs rpm key
   rpm_key: key={{omdistro_consol_labs_rpm_key}} state=present
 
-- name: install omdistro
-  yum: name=omd-{{omdistro_version}} state=installed
+- name: install omdistro and check-mk-agent
+  yum: name={{ item }} state=installed
+  notify: restart xinetd
+  with_items:
+    - omd-{{ omdistro_version }}
+    - check-mk-agent
