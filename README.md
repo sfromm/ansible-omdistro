@@ -25,7 +25,25 @@ For more information regarding *netmon*, please see:
 [netmon.org](netmon.org).  Extensions to *netmon* are the following:
 
 * **parent**:  The name of the parent device.  The parent *MUST* also be
-  listed in the monitored devices.
+  listed in the monitored devices.  The parent can be defined as a
+  string or as a list.  Here are two examples:
+
+```yaml
+- name: dc1-gw.example.net
+- name: dc2-gw.example.net
+- name: node-gw.example.net
+- name: node1.example.net
+  ext:
+    omdistro:
+      parent:  node-gw.example.net
+- name: node2.example.net
+  ext:
+    omdistro:
+      parent:
+        - dc1-gw.example.net
+        - dc2-gw.example.net
+```
+
 
 Dependencies
 ------------
