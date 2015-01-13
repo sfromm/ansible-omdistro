@@ -22,7 +22,10 @@ Role Variables
 TODO
 
 For more information regarding *netmon*, please see:
-[netmon.org](netmon.org).
+[netmon.org](netmon.org).  Extensions to *netmon* are the following:
+
+* **parent**:  The name of the parent device.  The parent *MUST* also be
+  listed in the monitored devices.
 
 Dependencies
 ------------

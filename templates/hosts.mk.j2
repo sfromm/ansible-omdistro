@@ -13,3 +13,21 @@ all_hosts = [
     "{{ host.name }}|{{ host.groups|join('|') }}",
 {% endfor %}
 ]
+
+{% if not omdistro_scan_parents %}
+# parent definitions
+parents += [
+{% for host in netmon.devices %}
+{%     if host['ext'] is defined and host['ext']['omdistro'] is defined and  host['ext']['omdistro']['parent'] is defined %}
+{%         if host['ext']['omdistro']['parent'] is string %}
+    ("{{ host.ext.omdistro.parent }}", ["{{ host.name }}"]),
+{%         else %}
+{%             for p in host['ext']['omdistro']['parent'] %}
+    ("{{ p }}", ["{{ host.name }}"]),
+{%             endfor %}
+    ("{{ host.ext.omdistro.parent }}", ["{{ host.name }}"]),
+{%         endif %}
+{%     endif %}
+{% endfor %}
+]
+{% endif %}
