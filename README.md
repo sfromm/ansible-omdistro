@@ -30,13 +30,18 @@ For more information regarding *netmon*, please see:
 
 ```yaml
 - name: dc1-gw.example.net
+  groups: [ core, dc ]
 - name: dc2-gw.example.net
+  groups: [ core, dc ]
 - name: node-gw.example.net
+  groups: [ core, dc ]
 - name: node1.example.net
+  groups: [ noc ]
   ext:
     omdistro:
       parent:  node-gw.example.net
 - name: node2.example.net
+  groups: [ noc ]
   ext:
     omdistro:
       parent:
@@ -55,6 +60,7 @@ Example Playbook
 
 A brief example:
 
+```yaml
     - hosts: servers
       roles:
          - {
@@ -62,7 +68,8 @@ A brief example:
               omdistro_version: 1.20
               omdistro_site: local
            }
-
+```
+           
 License
 -------
 
