@@ -11,6 +11,14 @@
 - name: start omd
   service: name=omd state=started enabled=yes
 
+- name: template timeperiods.cfg
+  template: >
+      src=timeperiods.cfg.j2
+      dest=/opt/omd/sites/{{ omdistro_site }}/etc/nagios/conf.d/timeperiods.cfg
+      owner={{ omdistro_site }}
+      group={{ omdistro_site }}
+      backup=yes
+
 - name: template hosts.mk
   template: >
       src=hosts.mk.j2

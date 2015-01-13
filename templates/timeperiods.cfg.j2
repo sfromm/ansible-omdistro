@@ -1,0 +1,24 @@
+# {{ ansible_managed }}
+###############################################################################
+# TIMEPERIODS.CFG - TIMEPERIOD DEFINITIONS
+#
+# NOTES: This config file provides you with some example timeperiod definitions
+#        that you can reference in host, service, contact, and dependency
+#        definitions.
+#
+#        You don't need to keep timeperiods in a separate file from your other
+#        object definitions.  This has been done just to make things easier to
+#        understand.
+#
+###############################################################################
+
+{% for period in omdistro_timeperiods|sort %}
+define timeperiod{
+       timeperiod_name {{ period }}
+       alias           {{ netmon['groups'][period]['descr'] }}
+{% for time in omdistro_timeperiods[period] %}
+       {{ time }}
+{% endfor %}
+       }
+
+{% endfor %}
