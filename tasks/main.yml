@@ -11,6 +11,27 @@
 - name: start omd
   service: name=omd state=started enabled=yes
 
+- name: enable seboolean httpd_can_network_connect
+  seboolean: name=httpd_can_network_connect state=on persistent=yes
+  when: ansible_selinux.status == 'enabled'
+
+- name: make sure apache redirects to ssl
+  when: omdistro_use_ssl
+  lineinfile: >-
+      dest=/opt/omd/sites/{{ omdistro_site }}/etc/apache/conf.d/omd.conf
+      regexp="^RedirectMatch \^/{{ omdistro_site }}\$ /{{ omdistro_site }}/omd/"
+      line="RedirectMatch ^/{{ omdistro_site }}$ https://{{ ansible_fqdn }}/{{ omdistro_site }}/omd/"
+      backrefs=yes
+      backup=yes
+
+- name: template thruk menu_local.conf to add wato
+  template: >-
+      src=menu_local.conf.j2
+      dest=/opt/omd/sites/{{ omdistro_site }}/etc/thruk/menu_local.conf
+      owner={{ omdistro_site }}
+      group={{ omdistro_site }}
+      backup=yes
+
 - name: template timeperiods.cfg
   template: >
       src=timeperiods.cfg.j2

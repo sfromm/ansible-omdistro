@@ -1,4 +1,5 @@
 ---
+omdistro_use_ssl: no
 omdistro_notification_logging: 1
 omdistro_no_snmpbulk_tag: nobulk
 omdistro_scan_parents: no
