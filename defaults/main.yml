@@ -4,7 +4,7 @@ omdistro_notification_logging: 1
 omdistro_no_snmpbulk_tag: nobulk
 omdistro_scan_parents: no
 omdistro_site: local
-omdistro_version: "1.20"
+omdistro_version: "1.30"
 omdistro_contactgroups:
     - admins
 omdistro_extra_host_conf:
