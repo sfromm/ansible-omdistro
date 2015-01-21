@@ -20,7 +20,7 @@
 
 - name: configure omd
   command: omd config set {{ item.name }} {{ item.value }}
-  when: omdistro[item.key] is defined and omdistro[item.key] != item.value
+  when: omdistro_site_facts[item.key] is defined and omdistro_site_facts[item.key] != item.value
   with_items: omdistro_site_config
 
 - name: make sure apache redirects to ssl
