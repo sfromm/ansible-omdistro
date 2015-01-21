@@ -41,7 +41,7 @@ EXAMPLES = '''
 
 def get_omd_facts(module, site):
     facts = {}
-    cmd = ['omdistro', 'config', site, 'show']
+    cmd = ['omd', 'config', site, 'show']
     rc, out, err = module.run_command(cmd)
     for line in out.splitlines():
         key, val = line.split(': ')
