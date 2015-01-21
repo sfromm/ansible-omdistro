@@ -13,7 +13,7 @@
 
 - name: enable seboolean httpd_can_network_connect
   seboolean: name=httpd_can_network_connect state=on persistent=yes
-  when: ansible_selinux.status is enabled and ansible_selinux.status == 'enabled'
+  when: ansible_selinux.status is defined and ansible_selinux.status == 'enabled'
 
 - name: get omd configuration details
   omdistro_facts: name={{ omdistro_site }}
