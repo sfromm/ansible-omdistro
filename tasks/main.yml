@@ -15,6 +15,14 @@
   seboolean: name=httpd_can_network_connect state=on persistent=yes
   when: ansible_selinux.status is enabled and ansible_selinux.status == 'enabled'
 
+- name: get omd configuration details
+  omdistro_facts: name={{ omdistro_site }}
+
+- name: configure omd
+  command: omd config set {{ item.name }} {{ item.value }}
+  when: omdistro[item.key] is defined and omdistro[item.key] != item.value
+  with_items: omdistro_site_config
+
 - name: make sure apache redirects to ssl
   when: omdistro_use_ssl
   lineinfile: >-
