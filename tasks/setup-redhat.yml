@@ -11,3 +11,4 @@
   with_items:
     - omd-{{ omdistro_version }}
     - check-mk-agent
+    - mod_ssl
