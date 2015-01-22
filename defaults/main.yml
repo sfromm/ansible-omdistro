@@ -66,8 +66,8 @@ omdistro_timeperiods:
     none: [ ]
 #
 # minimal apache-related vars
-omdistro_apache_documentroot_default: "{{ omdistro_apache_documentroot_default }}"
-omdistro_apache_serveradmin_default: "{{ omdistro_apache_serveradmin_default }}"
+omdistro_apache_documentroot: "{{ omdistro_apache_documentroot_default }}"
+omdistro_apache_serveradmin: "{{ omdistro_apache_serveradmin_default }}"
 omdistro_apache_errorlog: "{{ omdistro_apache_errorlog_default }}"
 omdistro_apache_transferlog: "{{ omdistro_apache_transferlog_default }}"
 omdistro_apache_confdir: "{{ omdistro_apache_confdir_default }}"
