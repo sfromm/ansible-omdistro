@@ -64,6 +64,14 @@ omdistro_timeperiods:
         - friday    06:00-22:00
         - saturday  06:00-22:00
     none: [ ]
+#
+# minimal apache-related vars
+omdistro_apache_documentroot_default: "{{ omdistro_apache_documentroot_default }}"
+omdistro_apache_serveradmin_default: "{{ omdistro_apache_serveradmin_default }}"
+omdistro_apache_errorlog: "{{ omdistro_apache_errorlog_default }}"
+omdistro_apache_transferlog: "{{ omdistro_apache_transferlog_default }}"
+omdistro_apache_confdir: "{{ omdistro_apache_confdir_default }}"
+#
 # the following serves only as an example
 # of what the netmon has/dictionary/mapping looks like.
 netmon:

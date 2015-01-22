@@ -1,0 +1,7 @@
+---
+omdistro_apache_documentroot_default: "/var/www/html"
+omdistro_apache_serveradmin_default: "root@localhost"
+omdistro_apache_errorlog_default: "logs/error_log"
+omdistro_apache_transferlog_default: "logs/access_log"
+omdistro_apache_confdir_default: "/etc/httpd/conf.d"
+omdistro_apache_svc_name: httpd

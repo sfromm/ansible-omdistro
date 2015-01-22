@@ -8,3 +8,6 @@
 
 - name: cmk reload
   command: su -c "cmk -O" -l {{omdistro_site}}
+
+- name: restart apache
+  service: name={{ omdistro_apache_svc_name }} state=restarted

@@ -1,4 +1,7 @@
 ---
+- name: include os-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - include: setup-redhat.yml
   when: ansible_os_family == "RedHat"
 
@@ -20,17 +23,18 @@
 
 - name: configure omd
   command: omd config set {{ item.name }} {{ item.value }}
-  when: omdistro_site_facts[item.key] is defined and omdistro_site_facts[item.key] != item.value
+  when: omdistro_site_facts[item.name] is defined and omdistro_site_facts[item.name] != item.value
   with_items: omdistro_site_config
 
 - name: make sure apache redirects to ssl
   when: omdistro_use_ssl
-  lineinfile: >-
-      dest=/opt/omd/sites/{{ omdistro_site }}/etc/apache/conf.d/omd.conf
-      regexp="^RedirectMatch \^/{{ omdistro_site }}\$ /{{ omdistro_site }}/omd/"
-      line="RedirectMatch ^/{{ omdistro_site }}$ https://{{ ansible_fqdn }}/{{ omdistro_site }}/omd/"
-      backrefs=yes
-      backup=yes
+  template: >-
+      src=00-use-ssl.conf.j2
+      dest={{ omdistro_apache_confdir }}/00-use-ssl.conf
+      owner=root
+      group=root
+      mode=0644
+  notify: restart apache
 
 - name: template thruk menu_local.conf to add wato
   template: >-
