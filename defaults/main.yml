@@ -4,7 +4,10 @@ omdistro_notification_logging: 1
 omdistro_no_snmpbulk_tag: nobulk
 omdistro_scan_parents: no
 omdistro_site: local
-omdistro_site_config: [ ]
+omdistro_site_config:
+    - { name: MULTISITE_COOKIE_AUTH, value: "on" }
+    - { name: THRUK_COOKIE_AUTH,     value: "on" }
+    - { name: PNP4NAGIOS,            value: "on" }
 omdistro_version: "1.30"
 omdistro_contactgroups:
     - admins
