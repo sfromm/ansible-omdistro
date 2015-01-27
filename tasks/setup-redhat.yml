@@ -8,7 +8,4 @@
 - name: install omdistro and related packages
   yum: name={{ item }} state=installed
   notify: restart xinetd
-  with_items:
-    - omd-{{ omdistro_version }}
-    - check-mk-agent
-    - mod_ssl
+  with_items: omdistro_pkgs
