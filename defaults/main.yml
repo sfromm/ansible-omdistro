@@ -37,6 +37,7 @@ omdistro_ignored_checktypes:
     - "nfsmounts"
 omdistro_ignored_services:
     asr1k: "Mem used lsmpi_io"
+omdistro_ping_levels: [ ]
 omdistro_inventory_check:
     interval: 1440
     severity: 1
