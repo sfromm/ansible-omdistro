@@ -6,8 +6,8 @@ omdistro_scan_parents: no
 omdistro_site: local
 omdistro_site_config:
     - { name: MULTISITE_COOKIE_AUTH, value: "on" }
-    - { name: THRUK_COOKIE_AUTH,     value: "on" }
     - { name: PNP4NAGIOS,            value: "on" }
+    - { name: MKEVENTD,              value: "on" }
 omdistro_version: "1.30"
 omdistro_contactgroups:
     - admins
