@@ -11,9 +11,6 @@
 - name: create omdistro site
   command: omd create {{ omdistro_site }} creates=/opt/omd/sites/{{ omdistro_site }}
 
-- name: start omd
-  service: name=omd state=started enabled=yes
-
 - name: enable seboolean httpd_can_network_connect
   seboolean: name=httpd_can_network_connect state=on persistent=yes
   when: ansible_selinux.status is defined and ansible_selinux.status == 'enabled'
@@ -26,6 +23,9 @@
   when: omdistro_site_facts[item.name] is defined and omdistro_site_facts[item.name] != item.value
   with_items: omdistro_site_config
   notify: restart omd
+
+- name: start omd
+  service: name=omd state=started enabled=yes
 
 - name: make sure apache redirects to ssl
   when: omdistro_use_ssl
