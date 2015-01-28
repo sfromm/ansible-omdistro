@@ -47,7 +47,7 @@ if_inventory_porttypes = [
 # Set ping levels based on tags
 ping_levels += [
 {% for tag, levels in omdistro_ping_levels.iteritems() %}
-    ( {{ tag }}, [ "{{ tag }}" ], ALL_HOSTS ),
+    ( {{ levels }}, [ "{{ tag }}" ], ALL_HOSTS ),
 {% endfor %}
 ]
 
