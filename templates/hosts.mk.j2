@@ -4,7 +4,13 @@
 all_hosts = [
 # ansible inventory
 {% for host in groups['all'] %}
-    "{{ host }}|snmp|tcp",
+{%     set grps = ['snmp', 'tcp'] %}
+{%     for grp in group_names %}
+{%         if grp in omdistro_hostgroups %}
+{%             do grps.append(grp) %}
+{%         endif %}
+{%     endfor %}
+    "{{ host }}|{{ grps.join('|') }}",
 {% endfor %}
 #
 # netmon inventory
