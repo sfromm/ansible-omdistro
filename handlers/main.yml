@@ -1,7 +1,4 @@
 ---
-- name: restart xinetd
-  service: name=xinetd state=restarted
-
 - name: cmk inventory
   command: su -c "cmk -II" -l {{omdistro_site}}
   notify: cmk reload
@@ -14,3 +11,9 @@
 
 - name: restart omd
   service: name=omd state=restarted
+
+- name: restart rsyslog
+  service: name=rsyslog state=restarted
+
+- name: restart xinetd
+  service: name=xinetd state=restarted
