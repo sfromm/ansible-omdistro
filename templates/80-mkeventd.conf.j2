@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+$template mkeventd,"<%PRI%>%TIMESTAMP% %HOSTNAME% %syslogtag% %msg%\n"
+$template mkeventdsnmp,"<%PRI%>%TIMESTAMP% %msg:F,58:1$% %syslogtag%%msg%\n"
+
+:programname,isequal,"snmptrapd" ^/omd/sites/{{ omdistro_site }}/bin/mkevent;mkeventdsnmp
+:programname,!isequal,"snmptrapd" ^/omd/sites/{{ omdistro_site }}/bin/mkevent;mkeventd
