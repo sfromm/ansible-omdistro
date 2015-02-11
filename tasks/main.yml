@@ -8,6 +8,15 @@
 - name: enable and start xinetd
   service: name=xinetd enabled=yes state=started
 
+- name: template rsyslogd mkeventd config
+  template: >
+      src=80-mkeventd.conf.j2
+      dest=/etc/rsyslog.d/80-mkeventd.conf
+      owner=root
+      group=root
+      mode=0644
+  notify: restart rsyslog
+
 - name: enable and start snmptrapd
   service: name=snmptrapd enabled=yes state=started
 
@@ -69,6 +78,15 @@
   template: >
       src=groups.mk.j2
       dest=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/conf.d/groups.mk
+      owner={{ omdistro_site }}
+      group={{ omdistro_site }}
+      backup=yes
+  notify: cmk reload
+
+- name: template contacts.mk
+  template: >-
+      src=contacts.mk.j2
+      dest=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/conf.d/contacts.mk
       owner={{ omdistro_site }}
       group={{ omdistro_site }}
       backup=yes
