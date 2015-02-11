@@ -5,6 +5,7 @@ omdistro_pkgs:
     - mod_ssl
     - mod_ldap
     - net-snmp
+    - rsyslog
 #
 omdistro_apache_documentroot_default: "/var/www/html"
 omdistro_apache_serveradmin_default: "root@localhost"
