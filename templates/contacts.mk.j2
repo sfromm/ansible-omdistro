@@ -1,0 +1,51 @@
+# {{ ansible_managed }}
+# Create contacts to associate with contact groups
+
+# CONTACTS
+contacts.update(
+{'omdadmin': {'alias': 'omdadmin'},
+{% for group in omdistro_contacts %}
+{%     for contact in omdistro_contacts[group]["members"] %}
+ '{{ contact.name }}' : { 'alias': u'{{ contact.alias }}',
+                          'email': '{{ contact.email }}',
+                          'pager': '{{ contact.pager|default(contact.name) }}',
+                          'host_notification_options': '{{ contact.host_notification_options|default(omdistro_contact_host_notification_options) }}',
+                          'service_notification_options': '{{ contact.service_notification_options|default(omdistro_contact_service_notification_options) }}',
+                          'notification_method': '{{ contact.notification_method|default(omdistro_contact_notification_method) }}',
+                          'notification_period': '{{ contact.notification_period|default(omdistro_contact_notification_period) }}',
+                          'notifications_enabled': '{{ contact.notifications_enabled|default(omdistro_contact_notifications_enabled) }}' },
+{%     endfor %}
+{% endfor %}
+
+# CONTACTGROUPS
+define_contactgroups = {
+{% for grp in omdistro_contactgroups %}
+    "{{netmon['groups'][grp]['name']}}" : "{{netmon['groups'][grp]['descr']}}",
+{% endfor %}
+}
+
+host_contactgroups = [
+    ( "Admins", ALL_HOSTS ),
+{% for grp in omdistro_contactgroups %}
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS ),
+{% endfor %}
+]
+
+service_contactgroups = [
+    ( "Admins", ALL_HOSTS, ALL_SERVICES ),
+{% for grp in omdistro_contactgroups %}
+{%     if 'filter' in netmon['groups'][grp] %}
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, [ "{{netmon['groups'][grp]['filter']|join('\", \"')}}" ] ),
+{%     else %}
+    ( "{{netmon['groups'][grp]['name']}}", ["{{grp}}"], ALL_HOSTS, ALL_SERVICES ),
+{%     endif %}
+{% endfor %}
+]
+
+{% for group in omdistro_contacts %}
+contactgroup_members["{{ group.name }}"] = [
+{%     for contact in omdistro_contacts[group]["members"] %}
+    "{{ contact.name }}",
+{% endfor %}
+]
+{% endfor %}
