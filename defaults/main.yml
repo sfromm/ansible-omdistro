@@ -9,6 +9,7 @@ omdistro_site_config:
     - { name: PNP4NAGIOS,            value: "on" }
     - { name: MKEVENTD,              value: "on" }
 omdistro_version: "1.30"
+omdistro_contacts: []
 omdistro_contactgroups:
     - admins
 omdistro_extra_host_conf:
@@ -68,6 +69,11 @@ omdistro_timeperiods:
         - friday    06:00-22:00
         - saturday  06:00-22:00
     none: [ ]
+omdistro_contact_host_notification_options: durfs
+omdistro_contact_service_notification_options: wucrfs
+omdistro_contact_notification_method: email
+omdistro_contact_notification_period: 24x7
+omdistro_contact_notifications_enabled: no
 #
 # minimal apache-related vars
 omdistro_apache_documentroot: "{{ omdistro_apache_documentroot_default }}"
