@@ -5,7 +5,7 @@
 contacts.update(
 {'omdadmin': {'alias': 'omdadmin'},
 {% for group in omdistro_contacts %}
-{%     for contact in omdistro_contacts[group]["members"] %}
+{%     for contact in group["members"] %}
  '{{ contact.name }}' : { 'alias': u'{{ contact.alias }}',
                           'email': '{{ contact.email }}',
                           'pager': '{{ contact.pager|default(contact.name) }}',
@@ -44,7 +44,7 @@ service_contactgroups = [
 
 {% for group in omdistro_contacts %}
 contactgroup_members["{{ group.name }}"] = [
-{%     for contact in omdistro_contacts[group]["members"] %}
+{%     for contact in group["members"] %}
     "{{ contact.name }}",
 {% endfor %}
 ]
