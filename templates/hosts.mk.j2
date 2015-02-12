@@ -10,7 +10,7 @@ all_hosts = [
 {%             do grps.append(grp) %}
 {%         endif %}
 {%     endfor %}
-    "{{ host }}|{{ grps.join('|') }}",
+    "{{ host }}|{{ grps|join('|') }}",
 {% endfor %}
 #
 # netmon inventory
