@@ -108,7 +108,7 @@
 
 - name: stat multisite wato users.mk
   stat: path=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/multisite.d/wato/users.mk
-  register: stat_wato_contacts
+  register: stat_wato_users
 
 - name: template users.mk if does not exist
   template: >-
