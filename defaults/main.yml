@@ -69,11 +69,21 @@ omdistro_timeperiods:
         - friday    06:00-22:00
         - saturday  06:00-22:00
     none: [ ]
-omdistro_contact_host_notification_options: durfs
-omdistro_contact_service_notification_options: wucrfs
+#
+# for wato contacts.mk
+omdistro_contact_host_notification_options: [ d, u, r, f, s ]
+omdistro_contact_service_notification_options: [ w, u, c, r, f, s ]
 omdistro_contact_notification_method: email
 omdistro_contact_notification_period: 24x7
 omdistro_contact_notifications_enabled: no
+#
+# for multisite wato users.mk
+omdistro_multisite_connector: ldap
+omdistro_multisite_user_locked: no
+omdistro_multisite_user_force_authuser: no
+omdistro_multisite_user_force_authuser_webservice: no
+omdistro_multisite_user_roles:
+  - user
 #
 # minimal apache-related vars
 omdistro_apache_documentroot: "{{ omdistro_apache_documentroot_default }}"
