@@ -1,0 +1,20 @@
+# {{ ansible_managed }}
+# Create WATO contacts
+
+# CONTACTS
+contacts.update(
+{'omdadmin': {'alias': 'omdadmin'},
+{% for contact in contacts|sort %}
+ '{{ contact.name }}' : { 'alias': u'{{ contact.alias }}',
+                          'contactgroups': [ "{{ contact.contactgroups|join('\", \"') }}" ],
+                          'email': '{{ contact.email }}',
+                          'pager': '{{ contact.pager|default(contact.name) }}',
+                          'host_notification_options': '{{ contact.host_notification_options|default(omdistro_contact_host_notification_options)|join("") }}',
+                          'service_notification_options': '{{ contact.service_notification_options|default(omdistro_contact_service_notification_options)|join("") }}',
+                          'notification_method': '{{ contact.notification_method|default(omdistro_contact_notification_method) }}',
+                          'notification_period': '{{ contact.notification_period|default(omdistro_contact_notification_period) }}',
+                          'notifications_enabled': '{{ contact.notifications_enabled|default(omdistro_contact_notifications_enabled) }}' },
+                          'notification_method': ( 'flexible'
+{% endfor %}
+})
+

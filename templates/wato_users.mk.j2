@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+
+# roles can be: guest, user, admin
+
+multisite_users = \
+{
+{% for contact in contacts|sort %}
+'{{ contact.name }}': { 'alias': u'{{ contact.alias }}',
+                        'connector': '{{ omdistro_multisite_connector }}',
+                        'force_authuser': '{{ omdistro_multisite_user_force_authuser }}',
+                        'force_authuser_webservice': '{{ omdistro_multisite_user_force_authuser_webservice }}',
+                        'roles': [ "{{ contact.roles|default(omdistro_multisite_user_roles|join('\", \"') }}" ], },
+{% endfor %}
+}

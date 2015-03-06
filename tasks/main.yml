@@ -83,15 +83,6 @@
       backup=yes
   notify: cmk reload
 
-- name: template contacts.mk
-  template: >-
-      src=contacts.mk.j2
-      dest=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/conf.d/contacts.mk
-      owner={{ omdistro_site }}
-      group={{ omdistro_site }}
-      backup=yes
-  notify: cmk reload
-
 - name: template main.mk
   template: >
       src=main.mk.j2
@@ -100,6 +91,33 @@
       group={{ omdistro_site }}
       backup=yes
   notify: cmk reload
+
+- name: stat wato contacts.mk
+  stat: path=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/conf.d/wato/contacts.mk
+  register: stat_wato_contacts
+
+- name: template wato contacts.mk if does not exist
+  template: >-
+      src=wato_contacts.mk.j2
+      dest=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/conf.d/wato/contacts.mk
+      owner={{ omdistro_site }}
+      group={{ omdistro_site }}
+      backup=yes
+  when: not stat_wato_contacts.stat.exists
+  notify: cmk reload
+
+- name: stat multisite wato users.mk
+  stat: path=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/multisite.d/wato/users.mk
+  register: stat_wato_contacts
+
+- name: template users.mk if does not exist
+  template: >-
+      src=wato_users.mk.j2
+      dest=/opt/omd/sites/{{ omdistro_site }}/etc/check_mk/multisite.d/wato/users.mk
+      owner={{ omdistro_site }}
+      group={{ omdistro_site }}
+      backup=yes
+  when: not stat_wato_users.stat.exists
 
 - name: scan for parent/child relationships
   command: su -c "cmk --scan-parents" -l {{omdistro_site}}
