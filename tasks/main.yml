@@ -16,6 +16,7 @@
       group=root
       mode=0644
   notify: restart rsyslog
+  when: omdistro_mkeventd and not omdistro_mkeventd_syslog
 
 - name: enable and start snmptrapd
   service: name=snmptrapd enabled=yes state=started
