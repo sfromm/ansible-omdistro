@@ -44,11 +44,13 @@ there are a number of variables to control the behavior of **OMD** and
     - { name: PNP4NAGIOS,            value: "on" }
     - { name: MKEVENTD,              value: "on" }
 ```
-- **omdistro_mkevent**: Whether to enable **Check_MK** *mkeventd*.
+- **omdistro_mkeventd**: Whether to enable **Check_MK** *mkeventd*.
   Default is `yes`.  For further information, see
   [Check_MK Event Console](https://mathias-kettner.de/checkmk_mkeventd.html).
-- **omdistro_mkeventd_syslog**:  Whether to enable forwarding of
-  messages from *rsyslog* to *mkeventd*.  Default is `yes`.  See also:
+- **omdistro_mkeventd_syslog**:  Whether to use *mkeventd*'s builtin
+  syslog daemon.  Default is `yes`.  If this is set to no *and*
+  **omdistro_mkeventd** is `yes`, this will enable forwarding of
+  messages from *rsyslog* to *mkeventd*.  See also:
   [Setting up the Event Console](https://mathias-kettner.de/checkmk_mkeventd_setup.html).
 - **omdistro_version**: Version of **OMD** to install.  Defaults to
   `1.30`.
