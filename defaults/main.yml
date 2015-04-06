@@ -12,17 +12,14 @@ omdistro_mkeventd: yes
 omdistro_mkeventd_syslog: yes
 omdistro_version: "1.30"
 omdistro_contacts: []
-omdistro_contactgroups:
-    - admins
+omdistro_contactgroups: []
 omdistro_extra_host_conf:
     max_check_attempts:
         - '"3", ALL_HOSTS'
 omdistro_extra_service_conf:
     max_check_attempts:
         - '"3", ALL_HOSTS, ALL_SERVICES'
-omdistro_hostgroups:
-    - noc
-    - core
+omdistro_hostgroups: []
 omdistro_iftypes:
     - 6
     - 18
@@ -38,9 +35,8 @@ omdistro_iftypes:
 omdistro_ignored_checktypes:
     - "df"
     - "nfsmounts"
-omdistro_ignored_services:
-    asr1k: "Mem used lsmpi_io"
-omdistro_ping_levels: [ ]
+omdistro_ignored_services: { }
+omdistro_ping_levels: { }
 omdistro_inventory_check:
     interval: 1440
     severity: 1
