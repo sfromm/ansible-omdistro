@@ -33,6 +33,7 @@ there are a number of variables to control the behavior of **OMD** and
   notifications.  See **Check_MK**
   [documentation](https://mathias-kettner.de/checkmk_flexible_notifications.html).
   Defaults to `1` (ie. yes).
+- **omdistro_snmp_default_community**: Default SNMP community string to use.
 - **omdistro_no_snmpbulk_tag**:  Default is `nobulk`.  When this tag is
   associated with a host, **Check_MK** will not use *snmpbulk* queries.
 - **omdistro_scan_parents**: Whether to scan devices to determine

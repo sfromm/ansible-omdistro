@@ -31,6 +31,8 @@ ipaddresses = {
 {% endfor %}
 }
 
+snmp_default_community = "{{ omdistro_snmp_default_community }}"
+
 # Exclude hosts tagged '{{omdistro_no_snmpbulk_tag}}' from snmp bulk operations
 bulkwalk_hosts += [
     ( [ "!{{omdistro_no_snmpbulk_tag}}" ], ALL_HOSTS )
@@ -87,5 +89,3 @@ extra_service_conf["{{ param }}"] = [
 {%     endfor %}
 ]
 {% endfor %}
-
-

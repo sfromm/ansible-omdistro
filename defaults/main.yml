@@ -3,6 +3,7 @@ omdistro_use_ssl: no
 omdistro_use_inventory: yes
 omdistro_notification_logging: 1
 omdistro_no_snmpbulk_tag: nobulk
+omdistro_snmp_default_community: public
 omdistro_scan_parents: no
 omdistro_site: local
 omdistro_site_config:
