@@ -14,7 +14,7 @@ the following:
 Requirements
 ------------
 
-NA
+There are no external dependencies.
 
 Role Variables
 --------------
@@ -23,6 +23,8 @@ Because there are several moving parts to configuring a NMS solution,
 there are a number of variables to control the behavior of **OMD** and
 **Check_MK**.
 
+- **omdistro_use_inventory**: Whether to use Ansible inventory when
+  populating list of devices to monitor.
 - **omdistro_use_ssl**: Whether to force SSL when connecting to the
   frontend via Apache.  Will copy a simple Apache configuration to
   redirect non-SSL connections to SSL.  Defaults to `no`, but you are
@@ -107,11 +109,32 @@ For more information regarding *netmon*, please see:
         - dc2-gw.example.net
 ```
 
-
 Dependencies
 ------------
 
-NA
+There are no dependencies on other roles.
+
+Templates
+---------
+
+Instead of creating a single /main.mk/ file to configure and manage
+**Check_MK**, this roles creates several files:
+
+- *etc/check_mk/main.mk*:  Defines 'general' configuration pieces, such
+as `custom_checks`, `checkgroup_parameters`, `ignored_services`, and so
+on.
+- *etc/check_mk/conf.d/hosts.mk*: Defines hosts to discover, the tags
+associated with each host, and parent/child relationships if
+**omdistro_scan_parents** is `no`.
+- *etc/check_mk/conf.d/groups.mk*: Defines *hostgroups*,
+*servicegroups*, and *contactgroups*.
+- *etc/check_mk/conf.d/wato/contacts.mk*: Defines contacts to associate
+with hosts and services.  This is only created if the file does not
+exist.  This allows further adjustment via the **WATO** interface.
+- *etc/check_mk/multisite.d/wato/users.mk*: Defines users allowed to log
+in to **Multisite**, the web interface, and the level of access to
+grant.  Similar to *contacts.mk*, this only creates the file if it does
+not already exist.
 
 Example Playbook
 ----------------

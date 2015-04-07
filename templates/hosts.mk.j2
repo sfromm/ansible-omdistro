@@ -2,6 +2,7 @@
 # {{ansible_managed}}
 
 all_hosts = [
+{% if omdistro_use_inventory %}
 # ansible inventory
 {% for host in groups['all'] %}
 {%     set grps = ['snmp', 'tcp'] %}
@@ -12,6 +13,7 @@ all_hosts = [
 {%     endfor %}
     "{{ host }}|{{ grps|join('|') }}",
 {% endfor %}
+{% endif %}
 #
 # netmon inventory
 # check_mk can only 'discover' ipv4
