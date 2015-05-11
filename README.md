@@ -71,6 +71,14 @@ there are a number of variables to control the behavior of **OMD** and
   a member of.
 - **omdistro_iftypes**: A list of /ifTypes/ that **Check_MK** will use
   for discovery of inventory.  You must use the /ifType/ integer.
+- **omdistro_if_inventory_uses_description**: Whether to use the
+  interface description for inventory purposes.  Defaults to `no`.  For
+  further information, refer to [if64 manual page](http://mathias-kettner.com/checkmk_check_if64.html).
+- **omdistro_if_inventory_uses_alias**:  Whether to use the interface
+  alias for inventory purposes.  Defaults to `no`.  For further
+  information, refer to [if64 manual page](http://mathias-kettner.com/checkmk_check_if64.html).
+  If this and `omdistro_if_inventory_uses_description` are set to `yes`,
+  `omdistro_if_inventory_uses_description` is preferred.
 - **omdistro_ignored_checktypes**: A list of checks to ignore during the
   inventory process.
 - **omdistro_ignored_services**: A dictionary of services to ignore.

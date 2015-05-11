@@ -46,6 +46,12 @@ if_inventory_porttypes = [
 {% endfor %}
 ]
 
+{% if omdistro_if_inventory_uses_description %}
+if_inventory_uses_description = True
+{% elif omdistro_if_inventory_uses_alias %}
+if_inventory_uses_alias = True
+{% endif %}
+
 # Set ping levels based on tags
 ping_levels += [
 {% for tag, levels in omdistro_ping_levels.iteritems() %}

@@ -33,6 +33,8 @@ omdistro_iftypes:
     - 117
     - 134
     - 135
+omdistro_if_inventory_uses_description: no
+omdistro_if_inventory_uses_alias: no
 omdistro_ignored_checktypes:
     - "df"
     - "nfsmounts"
