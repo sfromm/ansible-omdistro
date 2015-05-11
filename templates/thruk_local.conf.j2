@@ -5,7 +5,7 @@
 ######################################
 
 {% if omdistro_use_ssl %}
-cookie_auth_restricted_url        = https://localhost/{{ omd_site }}/thruk/cgi-bin/restricted.cgi
+cookie_auth_restricted_url        = https://localhost/{{ omdistro_site }}/thruk/cgi-bin/restricted.cgi
 {% endif %}
 {% for cfg in omdistro_thruk_conf %}
 {{ cfg['name'] }} = {{ cfg['value'] }}
