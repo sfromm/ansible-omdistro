@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+#
+######################################
+# Site Specific Settings
+######################################
+
+{% if omdistro_use_ssl %}
+cookie_auth_restricted_url        = https://localhost/{{ omd_site }}/thruk/cgi-bin/restricted.cgi
+{% endif %}
+{% for key, val in omdistro_thruk_conf %}
+{{ key }} = {{ val }}
+{% endfor %}

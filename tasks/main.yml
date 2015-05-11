@@ -50,6 +50,14 @@
       mode=0644
   notify: restart apache
 
+- name: template thruk_local.conf
+  template: >-
+      src=thruk_local.conf.j2
+      dest=/opt/omd/sites/{{ omdistro_site }}/etc/thruk/thruk_local.conf
+      owner={{ omdistro_site }}
+      group={{ omdistro_site }}
+      backup=yes
+
 - name: template thruk menu_local.conf to add wato
   template: >-
       src=menu_local.conf.j2
