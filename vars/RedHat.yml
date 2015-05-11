@@ -13,5 +13,3 @@ omdistro_apache_errorlog_default: "logs/error_log"
 omdistro_apache_transferlog_default: "logs/access_log"
 omdistro_apache_confdir_default: "/etc/httpd/conf.d"
 omdistro_apache_svc_name: httpd
-#
-omdistro_snmptrapd_opts_default: "-n -On -t -Lsd"

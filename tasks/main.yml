@@ -8,9 +8,6 @@
 - name: enable and start xinetd
   service: name=xinetd enabled=yes state=started
 
-- name: enable and start snmptrapd
-  service: name=snmptrapd enabled=yes state=started
-
 - name: create omdistro site
   command: omd create {{ omdistro_site }} creates=/opt/omd/sites/{{ omdistro_site }}
 

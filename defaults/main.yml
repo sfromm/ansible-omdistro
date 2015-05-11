@@ -91,9 +91,6 @@ omdistro_apache_errorlog: "{{ omdistro_apache_errorlog_default }}"
 omdistro_apache_transferlog: "{{ omdistro_apache_transferlog_default }}"
 omdistro_apache_confdir: "{{ omdistro_apache_confdir_default }}"
 #
-# snmptrapd related vars
-omdistro_snmptrapd_opts: "{{ omdistro_snmptrapd_opts_default }}"
-#
 # the following serves only as an example
 # of what the netmon has/dictionary/mapping looks like.
 netmon:
