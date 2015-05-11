@@ -10,9 +10,8 @@ omdistro_site_config:
     - { name: MULTISITE_COOKIE_AUTH, value: "on" }
     - { name: PNP4NAGIOS,            value: "on" }
     - { name: MKEVENTD,              value: "on" }
-omdistro_mkeventd: yes
-omdistro_mkeventd_syslog: yes
 omdistro_version: "1.30"
+omdistro_thruk_conf: [ ]
 omdistro_contacts: []
 omdistro_contactgroups: []
 omdistro_extra_host_conf:

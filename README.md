@@ -11,6 +11,13 @@ the following:
 - [Check_MK](https://mathias-kettner.de/checkmk.html)
 - [Nagios Object Definitions](http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html)
 
+You are encouraged to use the
+[Check_MK Event Console](https://mathias-kettner.de/checkmk_mkeventd.html).
+This is particularly helpful for receiving events via SNMP traps and
+syslog.  Refer to 
+[Setting up the Event Console](https://mathias-kettner.de/checkmk_mkeventd_setup.html).
+This requires *omdistro-1.21* at minimum.
+
 Requirements
 ------------
 
@@ -47,16 +54,9 @@ there are a number of variables to control the behavior of **OMD** and
     - { name: PNP4NAGIOS,            value: "on" }
     - { name: MKEVENTD,              value: "on" }
 ```
-- **omdistro_mkeventd**: Whether to enable **Check_MK** *mkeventd*.
-  Default is `yes`.  For further information, see
-  [Check_MK Event Console](https://mathias-kettner.de/checkmk_mkeventd.html).
-- **omdistro_mkeventd_syslog**:  Whether to use *mkeventd*'s builtin
-  syslog daemon.  Default is `yes`.  If this is set to no *and*
-  **omdistro_mkeventd** is `yes`, this will enable forwarding of
-  messages from *rsyslog* to *mkeventd*.  See also:
-  [Setting up the Event Console](https://mathias-kettner.de/checkmk_mkeventd_setup.html).
-- **omdistro_version**: Version of **OMD** to install.  Defaults to
-  `1.30`.
+- **omdistro_thruk_conf**: A list of dictionaries that configures *Thruk*.
+  Each dictionary has the keys *name* and *value* for the configuration
+  parameter name and value respectively.
 - **omdistro_contacts**: A list of dictionaries that describe *contact*
   and *user* entries for **Check_MK**.  Each entry should at minimum
   define:

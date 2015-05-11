@@ -8,16 +8,6 @@
 - name: enable and start xinetd
   service: name=xinetd enabled=yes state=started
 
-- name: template rsyslogd mkeventd config
-  template: >
-      src=80-mkeventd.conf.j2
-      dest=/etc/rsyslog.d/80-mkeventd.conf
-      owner=root
-      group=root
-      mode=0644
-  notify: restart rsyslog
-  when: omdistro_mkeventd and not omdistro_mkeventd_syslog
-
 - name: enable and start snmptrapd
   service: name=snmptrapd enabled=yes state=started
 
