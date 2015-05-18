@@ -3,9 +3,9 @@ omdistro_pkgs:
     - omd-{{ omdistro_version }}
     - check-mk-agent
     - mod_ssl
-    - mod_ldap
     - net-snmp
     - rsyslog
+    - snmptt
 #
 omdistro_apache_documentroot_default: "/var/www/html"
 omdistro_apache_serveradmin_default: "root@localhost"
