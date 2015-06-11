@@ -38,6 +38,12 @@ bulkwalk_hosts += [
     ( [ "!{{omdistro_no_snmpbulk_tag}}" ], ALL_HOSTS )
 ]
 
+snmp_check_interval += [
+{% for interval in omdistro_snmp_check_interval %}
+    ( {{ interval }} ),
+{% endfor %}
+]
+
 # List of ifTypes to monitor
 # See https://mathias-kettner.de/checkmk_check_if.html
 if_inventory_porttypes = [

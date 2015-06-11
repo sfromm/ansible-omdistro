@@ -43,6 +43,12 @@ there are a number of variables to control the behavior of **OMD** and
 - **omdistro_snmp_default_community**: Default SNMP community string to use.
 - **omdistro_no_snmpbulk_tag**:  Default is `nobulk`.  When this tag is
   associated with a host, **Check_MK** will not use *snmpbulk* queries.
+- **omdistro_snmp_check_interval**: A list of rules that define the
+  check interval of SNMP based checks.  An example would be:
+  `('if', 5), ["core"], ALL_HOSTS`.  This would perform *if* checks
+  every 5 minutes for devices tagged *core*.  This defaults to an emtpy
+  list.  For further infomration on this parameter, refer to the
+  **Check_MK** [documentation](https://mathias-kettner.de/checkmk_configvars.html#snmp_check_interval).
 - **omdistro_scan_parents**: Whether to scan devices to determine
   parent/child relationships.  Default is `no`.
 - **omdistro_site**:  The *omdistro* site name.  Defaults to `local`.

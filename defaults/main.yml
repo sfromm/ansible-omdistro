@@ -2,8 +2,12 @@
 omdistro_use_ssl: no
 omdistro_use_inventory: yes
 omdistro_notification_logging: 1
+#
+# SNMP related
 omdistro_no_snmpbulk_tag: nobulk
 omdistro_snmp_default_community: public
+omdistro_snmp_check_interval: [ ]
+#
 omdistro_scan_parents: no
 omdistro_site: local
 omdistro_site_config:
@@ -46,6 +50,14 @@ omdistro_inventory_check:
 omdistro_servicegroups:
     - snmp
     - tcp
+omdistro_mkeventd_rules:
+    - description: Fallback
+      autodelete: no
+      cancel_actions: []
+      drop: no
+      actions: []
+      disabled: no
+      match: ".*"
 omdistro_timeperiods:
     24x7:
         - sunday    00:00-24:00
