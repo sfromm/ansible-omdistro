@@ -49,6 +49,10 @@ there are a number of variables to control the behavior of **OMD** and
   every 5 minutes for devices tagged *core*.  This defaults to an emtpy
   list.  For further infomration on this parameter, refer to the
   **Check_MK** [documentation](https://mathias-kettner.de/checkmk_configvars.html#snmp_check_interval).
+- **omdistro_snmp_communities**: A list of lists that defines SNMP
+  community strings for devices not using the default SNMP community
+  string.  An example: `- [ "muc-secret", "munich" ]`.  For further information
+  on this paramter, refer to the **Check_MK** [documentation](https://mathias-kettner.de/checkmk_snmp.html).
 - **omdistro_scan_parents**: Whether to scan devices to determine
   parent/child relationships.  Default is `no`.
 - **omdistro_site**:  The *omdistro* site name.  Defaults to `local`.

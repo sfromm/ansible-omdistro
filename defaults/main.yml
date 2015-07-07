@@ -7,6 +7,7 @@ omdistro_notification_logging: 1
 omdistro_no_snmpbulk_tag: nobulk
 omdistro_snmp_default_community: public
 omdistro_snmp_check_interval: [ ]
+omdistro_snmp_communities: [ ]
 #
 omdistro_scan_parents: no
 omdistro_site: local

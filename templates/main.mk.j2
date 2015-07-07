@@ -33,6 +33,12 @@ ipaddresses = {
 
 snmp_default_community = "{{ omdistro_snmp_default_community }}"
 
+snmp_communities = [
+{% for tag, comstr in omdistro_snmp_communities.iteritems() %}
+    ( "{{ comstr }}", ["{{ tag }}"], ALL_HOSTS )
+{% endfor %}
+]
+
 # Exclude hosts tagged '{{omdistro_no_snmpbulk_tag}}' from snmp bulk operations
 bulkwalk_hosts += [
     ( [ "!{{omdistro_no_snmpbulk_tag}}" ], ALL_HOSTS )
