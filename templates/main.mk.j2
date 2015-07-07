@@ -34,7 +34,7 @@ ipaddresses = {
 snmp_default_community = "{{ omdistro_snmp_default_community }}"
 
 snmp_communities = [
-{% for tag, comstr in omdistro_snmp_communities.iteritems() %}
+{% for tag, comstr in omdistro_snmp_communities %}
     ( "{{ comstr }}", ["{{ tag }}"], ALL_HOSTS )
 {% endfor %}
 ]
