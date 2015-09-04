@@ -43,6 +43,9 @@ omdistro_if_inventory_uses_alias: no
 omdistro_ignored_checktypes:
     - "df"
     - "nfsmounts"
+omdistro_checkgroup_parameters:
+    if:
+        - "{'unit' : 'bit' }, [], ALL_HOSTS, ALL_SERVICES, {'comment': u'Show bits instead of bytes'}"
 omdistro_ignored_services: { }
 omdistro_ping_levels: { }
 omdistro_inventory_check:

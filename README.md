@@ -53,6 +53,11 @@ there are a number of variables to control the behavior of **OMD** and
   community strings for devices not using the default SNMP community
   string.  An example: `- [ "muc-secret", "munich" ]`.  For further information
   on this paramter, refer to the **Check_MK** [documentation](https://mathias-kettner.de/checkmk_snmp.html).
+- **omdistro_checkgroup_parameters**: Define parameters for specific
+  checks and checkgroups.  The default is:
+```
+    - "{'unit' : 'bit' }, [], ALL_HOSTS, ALL_SERVICES, {'comment': u'Show bits instead of bytes'}"
+```
 - **omdistro_scan_parents**: Whether to scan devices to determine
   parent/child relationships.  Default is `no`.
 - **omdistro_site**:  The *omdistro* site name.  Defaults to `local`.

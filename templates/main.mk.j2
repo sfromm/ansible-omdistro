@@ -71,6 +71,16 @@ ping_levels += [
 {% endfor %}
 ]
 
+# Define parameters for specific checks/checkgroups
+{% for param in omdistro_checkgroup_parameters %}
+checkgroup_parameters.setdefault('{{ param }}', [])
+checkgroup_paramters['{{ param }}'] += [
+{%     for value in omdistro_extra_host_conf[param] %}
+    ( {{ value }} ),
+{%     endfor %}
+
+{% endfor %}
+
 # Skip the following checks.
 ignored_checktypes = [
 {% for arg in omdistro_ignored_checktypes %}
@@ -83,11 +93,6 @@ ignored_services = [
 {% for tag, filter in omdistro_ignored_services.iteritems() %}
     ( [ "{{tag}}" ], ALL_HOSTS, [ "{{filter}}" ] ),
 {% endfor %}
-]
-
-# Use bits, not bytes for monitoring and measuring.
-checkgroup_parameters['if'] = [
-    ( {'unit' : 'bit' }, [], ALL_HOSTS, ALL_SERVICES, {'comment': u'Show bits instead of bytes'} ),
 ]
 
 # Define extra host configuration parameters
