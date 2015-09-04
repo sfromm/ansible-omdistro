@@ -74,7 +74,7 @@ ping_levels += [
 # Define parameters for specific checks/checkgroups
 {% for param, values in omdistro_checkgroup_parameters.iteritems() %}
 checkgroup_parameters.setdefault('{{ param }}', [])
-checkgroup_paramters['{{ param }}'] += [
+checkgroup_parameters['{{ param }}'] += [
 {%     for value in values %}
     ( {{ value }} ),
 {%     endfor %}
