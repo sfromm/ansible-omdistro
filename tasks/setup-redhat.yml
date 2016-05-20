@@ -8,4 +8,4 @@
 - name: install omdistro and related packages
   yum: name={{ item }} state=installed
   notify: restart xinetd
-  with_items: omdistro_pkgs
+  with_items: "{{ omdistro_pkgs }}"
