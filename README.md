@@ -1,6 +1,8 @@
 omdistro and check_mk
 =====================
 
+**This role is no longer maintained**.  It is left here for posterity's sake.
+
 Ansible role to manage [omdistro](http://omdistro.org) and
 [check_mk](https://mathias-kettner.de/check_mk.html).
 
